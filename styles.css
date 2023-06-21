@@ -139,3 +139,11 @@ body {
   .add-form-button_disabled {
     background-color: rgb(109, 109, 109);
   }
+
+  .dpnone {
+    display: none;
+  }
+
+  .text-wile {
+    font-size: 16px;
+  }
