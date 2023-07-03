@@ -244,24 +244,42 @@ border: 3px solid red;
       body: JSON.stringify({
         name: protectionHtml(nameElement.value),
         text: protectionHtml(textElement.value),
+        forceError: true,
       })
     }).then((response) => {
-      if (response.status == 201) {
-        fetchComments();
-        return response;
-      } else {
-        console.log(response.status);
-        return response;
-      }
+      if (response.status === 201) {
+        nameElement.classList.remove('error');
+        textElement.classList.remove('error');
+        return response.json();
+      } else if (response.status === 400) {
+        throw new Error ('Плохой запрос')
+      } else if (response.status === 500) {
+        throw new Error ('Сервер упал')
+      } 
     })
     .then(() => {
       formComment.classList.remove('dpnone');
       messageComment.classList.add('dpnone');
+      nameElement.value = '';
+      textElement.value = '';
+      fetchComments()
+    }).catch((error) => {
+      formComment.classList.remove('dpnone');
+      messageComment.classList.add('dpnone');
+      if (error.message === 'Плохой запрос') {
+        alert('Вы ввели слишком короткое имя или комментарий')
+        return
+      }
+      if (error.message === 'Сервер упал') {
+        alert('Извините сервер не доступен')
+        return
+      }
+      else {
+        alert('Нет интернета')
+        return 
+      }
+      sentComment();
     })
-
-    nameElement.value = '';
-    textElement.value = '';
-    return;
   };
 
   function fetchComments(){
