@@ -139,3 +139,22 @@ body {
   .add-form-button_disabled {
     background-color: rgb(109, 109, 109);
   }
+
+  .dpnone {
+    display: none;
+  }
+
+  .text-wile {
+    font-size: 16px;
+  }
+
+  .text-regLink {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+      font-size: 24px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      color: #ffffff;
+  }
